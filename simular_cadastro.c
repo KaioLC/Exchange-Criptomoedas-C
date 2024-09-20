@@ -34,8 +34,9 @@ int main(void){
     Usuarios usuario[LIMITE_USUARIOS];
     for(int i = 0; i < LIMITE_USUARIOS; i++){
         usuario[i].id_usuario = i;
-        printf("Qual o nome do usuario com id %d", usuario[i].id_usuario);
+        printf("Qual o nome do usuario com id %d --> ", usuario[i].id_usuario);
         fgets(usuario[i].nome,50,stdin);
+        fflush(stdin);
     }
     salvar_usuario(&usuario,LIMITE_USUARIOS);
     // limpando  todos os usuarios
@@ -48,11 +49,27 @@ int main(void){
         printf("Id: %d, %s",usuario[i].id_usuario,usuario[i].nome);
     }
     // lendo apos ler o arquivo
+    char login[50];
+    int verificando;
+
+    printf("Qual seu nome: ");
+    fgets(login,50,stdin);
+    fflush(stdin);
+
     ler_usuario(&usuario,LIMITE_USUARIOS);
-    printf("Depois de ler %d", usuario[0].cpf);
     for(int i = 0; i < LIMITE_USUARIOS; i++){
         printf("Id: %d, %s",usuario[i].id_usuario,usuario[i].nome);
+    };
+    for(verificando = 0; verificando < LIMITE_USUARIOS; verificando++){
+        if(strcmp(usuario[verificando].nome,login) == 0){
+            printf("Bem vindo Usuario %d, cujo nome eh %s",usuario[verificando].id_usuario,usuario[verificando].nome);
+            break;
+        }
+    }
+    if(verificando == LIMITE_USUARIOS){
+        printf("Usuario nao  encontrado!");
     }
 
+   
     return 0;
 }
